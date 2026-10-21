@@ -1,0 +1,73 @@
+.modal-component {
+    margin: 0 auto;
+    position: relative;max-width: 280px;
+    max-height: 550px;
+}
+
+.decoration-modal-element {
+    position: relative;
+    top: 53px;
+    left: 68px;
+    width: 144px;
+    height: 144px;
+    border: 2px solid #999B95;
+    background-color: rgba(110, 117, 102, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-elements {
+    align-self: center;
+    position: relative;
+    padding: 71px 24px 36px;
+    width: 280px;
+    height: 407px;
+    text-align: center;
+    z-index: 10;
+}
+
+.background-icon-modal-element {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("../../img/icons/shirt.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.title-modal-element {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 60px;
+    margin-bottom: 4px;
+}
+
+.text-modal-element {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 24px;
+}
+
+.result-modal-element {
+    margin-bottom: 68px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Добавьте в конец style.css */
+@media screen and (max-height: 750px) {
+    .modal-component {
+        transform: scale(0.75);
+        transform-origin: top center;
+        max-height: 450px;
+    }
+}

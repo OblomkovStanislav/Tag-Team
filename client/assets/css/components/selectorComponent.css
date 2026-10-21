@@ -1,0 +1,24 @@
+.selector-component {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 350px;
+}
+
+.label-selector-element {
+    color: #B6FDE5;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.select-selector-element {
+    height: 36px;
+    font-size: 16px;
+    background: #191A1C;
+    font-weight: 400;
+    line-height: 24px;
+    color: #FFF;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+}

@@ -1,0 +1,96 @@
+.navbar {
+    z-index: 1000;
+}
+
+.menu-wrapper {
+    display: flex;
+    position: relative;
+}
+
+/* Скрываем чекбокс */
+#menu-checkbox {
+    display: none;
+}
+
+/* Бургер-иконка */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    border-radius: 3px;
+    background: #ffffff;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Анимация превращения в крестик */
+#menu-checkbox:checked ~ .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+#menu-checkbox:checked ~ .hamburger span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+#menu-checkbox:checked ~ .hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* Пункты меню - ДЕСКТОП */
+#menu-items {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 50px;
+    list-style: none;
+}
+
+#menu-items li {
+    width: 220px;
+}
+
+/* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    /* Меню выезжает справа */
+    #menu-items {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.50);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        padding: 40px 20px;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+    }
+
+    /* Когда чекбокс активен - показываем меню */
+    #menu-checkbox:checked ~ #menu-items {
+        right: 0;
+    }
+
+    #menu-items li {
+        width: 100%;
+        text-align: center;
+    }
+}

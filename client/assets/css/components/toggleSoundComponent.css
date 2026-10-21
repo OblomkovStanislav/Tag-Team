@@ -1,0 +1,52 @@
+.toggle-sound-component {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.toggle-sound-component button {
+    width: 36px;
+    height: 20px;
+    border: 1px solid #313A33;
+    background: #212720;
+    border-radius: 360px;
+    display: flex;
+    padding: 0 2px;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all 0.3s ease 0s;
+}
+
+.toggle-sound-component button.on {
+    background: linear-gradient(90deg, #4AA32F 0%, #66DC42 100%);
+    border: 1px solid #75FA4C;
+    justify-content: flex-end;
+}
+
+.toggle-sound-component span {
+    width: 16px;
+    height: 16px;
+    background-color: #FDFDFD;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease 0s;
+}
+
+.toggle-sound-component span:after {
+    position: absolute;
+    content: '';
+    height: 14px;
+    width: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('../../img/icons/soundOff.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.toggle-sound-component button.on span:after {
+    background-image: url('../../img/icons/soundOn.svg');
+}
