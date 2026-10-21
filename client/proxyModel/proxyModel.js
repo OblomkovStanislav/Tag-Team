@@ -22,7 +22,7 @@ export class ProxyModel {
     //Конструктор класса
     constructor(eventEmitter) {
         this.#eventEmitter = eventEmitter;
-        this.#ws = new WebSocket("ws://localhost:3001");
+        this.#ws = new WebSocket("wss://tag-team.onrender.com");
 
         this.#ws.addEventListener("message", event => {
             this.#state = JSON.parse(event.data);
