@@ -21,8 +21,6 @@ const findFreePlayerId = () => {
     return null;
 };
 
-// let connectionCount = 0; //Кол-во подключений
-
 //Создать объект передачи данных
 const createDTO = playerId => {
     const hasUnit = game.player1 && game.player2 && game.enemy; //Флаг наличия всех Units
@@ -73,11 +71,21 @@ const createDTO = playerId => {
 
 const wss = new WebSocketServer({port}); //Веб-сокет сервер
 
+setInterval(() => {
+    wss.clients.forEach(ws => {
+        if (ws.isAlive === false) {
+            console.log("Убиваем мертвое соединение");
+            return ws.terminate();
+        }
+
+        ws.isAlive = false;
+        ws.ping();
+    });
+}, 30000);
+
 //При подключении к серверу
 wss.on("connection", chanel => {
-    // const playerId = connectionCount % 2 === 0 ? 1 : 2; //Идентификатора игрока
-    // connectionCount++;
-
+    chanel.isAlive = true;
     const playerId = findFreePlayerId();
 
     if (playerId === null) {
@@ -96,6 +104,10 @@ wss.on("connection", chanel => {
     };
 
     game.eventEmitter.addEventListener("change", onChangeHandler);
+
+    chanel.on("pong", () => {
+        chanel.isAlive = true; // <-- Клиент ответил, он жив
+    });
 
     //При получении сообщения в канале
     chanel.on("message", message => {
@@ -147,6 +159,6 @@ wss.on("connection", chanel => {
 
     //При получении ошибки
     chanel.on("error", () => {
-        chanel.close();
+        chanel.terminate();
     });
 });
