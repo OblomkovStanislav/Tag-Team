@@ -1,5 +1,5 @@
 import {ButtonComponent} from "../buttonComponent/buttonComponent.js";
-import {GameStatuses} from "../../../../shared/gameStatuses.js";
+import {GameStatuses} from "../../../proxyModel/gameStatuses.js";
 import {BurgerMenuComponent} from "../burgerMenuComponent/burgerMenuComponent.js";
 
 //Класс Компонент Настройки

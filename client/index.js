@@ -1,8 +1,8 @@
 import {Controller} from "./controller/controller.js";
 import {View} from "./view/view.js";
-import {EventEmitter} from "../server/observer/observer.js";
 import {ProxyModel} from "./proxyModel/proxyModel.js";
 import {AudioManager} from "./utils/audioManager.js";
+import {EventEmitter} from "./utils/observer.js";
 
 const view = new View();
 

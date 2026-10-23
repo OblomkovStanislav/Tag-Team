@@ -1,6 +1,6 @@
-import {GameStatuses} from "../../shared/gameStatuses.js";
-
 //Класс Прокси-модель
+import {GameStatuses} from "./gameStatuses.js";
+
 export class ProxyModel {
     #eventEmitter; //Эмиттер событий
     #ws; //Клиент веб-сокета
@@ -110,6 +110,11 @@ export class ProxyModel {
 
     //Старт
     start() {
+        if (this.#ws.readyState !== WebSocket.OPEN) {
+            console.warn("Ждем подключения к серверу...");
+            return;
+        }
+
         this.#ws.send(
             JSON.stringify({
                 type: "start",

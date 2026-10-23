@@ -1,6 +1,6 @@
-import {GameStatuses} from "../../shared/gameStatuses.js";
-
 //Класс Контроллер
+import {GameStatuses} from "../proxyModel/gameStatuses.js";
+
 export class Controller {
     //Приватные свойства
 
@@ -62,6 +62,8 @@ export class Controller {
 
     //Проверить был ли прыжок врага
     #checkJumpEnemy() {
+        if (!this.#model.enemy) return;
+
         if (
             this.#prevEnemyPosition.x !== this.#model.enemy.position.x ||
             this.#prevEnemyPosition.y !== this.#model.enemy.position.y
@@ -73,6 +75,8 @@ export class Controller {
 
     //Проверить изменился ли счет
     #checkScore() {
+        if (!this.#model.score) return;
+
         if (this.#prevScore["1"] !== this.#model.score["1"] || this.#prevScore["2"] !== this.#model.score["2"])
             this.#audio.play("goose");
 

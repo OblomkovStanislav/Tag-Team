@@ -2,7 +2,7 @@ import {GridComponent} from "./components/gridComponent/gridComponent.js";
 import {SettingsComponent} from "./components/settingsComponent/settingsComponent.js";
 import {ResultBlockComponent} from "./components/resultBlockComponent/resultBlockComponent.js";
 import {ModalComponent} from "./components/modalComponent/modalComponent.js";
-import {GameStatuses} from "../../shared/gameStatuses.js";
+import {GameStatuses} from "../proxyModel/gameStatuses.js";
 import {ToggleSoundComponent} from "./components/toggleSoundComponent/toggleSoundComponent.js";
 
 //Класс Вид
