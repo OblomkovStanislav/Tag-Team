@@ -4,6 +4,7 @@
     max-height: 550px;
 }
 
+/*Декоративный круг под иконкой*/
 .decoration-modal-element {
     position: relative;
     top: 53px;
@@ -21,13 +22,14 @@
 .modal-elements {
     align-self: center;
     position: relative;
-    padding: 71px 24px 36px;
+    padding: 71px 24px 36px; /*Верхний отступ 71px, чтобы текст не наезжал на декоративный круг*/
     width: 280px;
     height: 407px;
     text-align: center;
     z-index: 10;
 }
 
+/*Фоновая картинка (рубашка) за всем контентом*/
 .background-icon-modal-element {
     position: absolute;
     height: 100%;
@@ -39,7 +41,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     z-index: -1;
-    pointer-events: none;
+    pointer-events: none; /*Фон не должен перехватывать клики по кнопкам внутри модального окна*/
 }
 
 .title-modal-element {
@@ -63,11 +65,11 @@
     gap: 24px;
 }
 
-/* Добавьте в конец style.css */
+/*Уменьшаем модальное окно на мобильных устройствах*/
 @media screen and (max-height: 750px) {
     .modal-component {
         transform: scale(0.75);
-        transform-origin: top center;
+        transform-origin: top center; /*Сжимаем от верхнего центра, чтобы окно не уезжало вниз*/
         max-height: 450px;
     }
 }

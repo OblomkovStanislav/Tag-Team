@@ -7,12 +7,12 @@
     position: relative;
 }
 
-/* Скрываем чекбокс */
+/*Скрываем флажок*/
 #menu-checkbox {
     display: none;
 }
 
-/* Бургер-иконка */
+/*Бургер-иконка*/
 .hamburger {
     display: none;
     flex-direction: column;
@@ -32,7 +32,7 @@
     transform-origin: center;
 }
 
-/* Анимация превращения в крестик */
+/*Анимация превращения в крестик*/
 #menu-checkbox:checked ~ .hamburger span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 6px);
 }
@@ -46,7 +46,7 @@
     transform: rotate(-45deg) translate(5px, -6px);
 }
 
-/* Пункты меню - ДЕСКТОП */
+/*Пункты меню для desktop*/
 #menu-items {
     display: flex;
     width: 100%;
@@ -59,13 +59,13 @@
     width: 220px;
 }
 
-/* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
+/*=====МОБИЛЬНАЯ ВЕРСИЯ=====*/
 @media screen and (max-width: 768px) {
     .hamburger {
         display: flex;
     }
 
-    /* Меню выезжает справа */
+    /*Меню выезжает справа*/
     #menu-items {
         position: fixed;
         top: 0;
@@ -84,7 +84,7 @@
         overflow-y: auto;
     }
 
-    /* Когда чекбокс активен - показываем меню */
+    /*Когда флажок активен, то показываем меню*/
     #menu-checkbox:checked ~ #menu-items {
         right: 0;
     }

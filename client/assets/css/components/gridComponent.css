@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: flex-start;
     width: 100%;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 200px); /*200px — резервируем место под панель настроек и счет сверху*/
     min-height: 0;
     padding: 20px;
     box-sizing: border-box;
@@ -14,8 +14,8 @@
     display: grid;
     gap: 5px;
     width: 100%;
-    max-width: min(100%, 600px);
-    aspect-ratio: 1 / 1;
+    max-width: min(100%, 600px); /*Ограничиваем максимальную ширину поля, чтобы на ПК оно не растягивалось*/
+    aspect-ratio: 1 / 1; /*Держим поле идеально квадратным*/
     margin: 0 auto;
 }
 

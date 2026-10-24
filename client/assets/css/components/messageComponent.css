@@ -4,13 +4,18 @@
     font-weight: 700;
     text-align: center;
     margin-top: 20px;
+
+    /*
+     * Трюк с градиентным текстом:
+     * 1. Создаем градиент и делаем его в 2 раза шире текста.
+     * 2. Обрезаем фон по контуру букв.
+     * 3. Делаем сами буквы прозрачными, чтобы был виден фон.
+     */
     background: linear-gradient(90deg, #75F94C, #00FFCC, #75F94C);
     background-size: 200% auto;
-    -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
     color: transparent;
-    animation: gradient-flow 1s linear infinite;
+    animation: gradient-flow 3s linear infinite;
 }
 
 @keyframes gradient-flow {
