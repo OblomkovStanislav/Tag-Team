@@ -8,6 +8,12 @@
 @import "components/settingsComponent.css";
 @import "components/gridComponent.css";
 
+body, #root {
+    touch-action: none;
+    overscroll-behavior: none;
+    user-select: none;
+}
+
 body {
     display: flex;
     flex-direction: column;

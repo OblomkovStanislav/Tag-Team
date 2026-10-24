@@ -107,6 +107,7 @@ export class Controller {
     #muteAudio() {
         this.#saveIsMute(!this.#audio.isMute);
         this.#audio.mute();
+        this.#render();
     }
 
     //Инициализировать

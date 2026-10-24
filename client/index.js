@@ -3,6 +3,7 @@ import {View} from "./view/view.js";
 import {ProxyModel} from "./proxyModel/proxyModel.js";
 import {AudioManager} from "./utils/audioManager.js";
 import {EventEmitter} from "./utils/observer.js";
+import {SwipeManager} from "./utils/swipeManager.js";
 
 const view = new View();
 
@@ -44,3 +45,10 @@ window.addEventListener("keydown", e => {
             break;
     }
 });
+
+const swipeManager = new SwipeManager(direction => {
+    const player = proxyModel.playerId === 1 ? proxyModel.player1 : proxyModel.player2;
+    controller.movePlayers(player, direction);
+});
+
+swipeManager.init();
