@@ -4,7 +4,7 @@ export class SelectorComponent {
     #label; //Надпись
     #disabled; //Флаг активности
     #options; //Опции
-    #value; //???
+    #value; //Значение
 
     constructor(id, label, disabled, options, value) {
         this.#id = id;

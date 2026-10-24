@@ -125,8 +125,8 @@ export class Controller {
     }
 
     //Переместить игрока
-    movePlayers(player, direction) {
-        this.#model.movePlayers(player, direction);
+    movePlayer(player, direction) {
+        this.#model.movePlayer(player, direction);
         this.#audio.play("move");
     }
 }

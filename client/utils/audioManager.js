@@ -16,7 +16,9 @@ export class AudioManager {
 
     //Добавить звук
     add(src, name) {
-        this.#sounds[name] = new Audio(src);
+        const sound = new Audio(src);
+        sound.preload = "auto";
+        this.#sounds[name] = sound;
     }
 
     //Удалить звук
@@ -32,8 +34,11 @@ export class AudioManager {
 
         if (!sound) return;
 
-        sound.currentTime = 0;
-        sound.play().catch(() => {});
+        const clone = sound.cloneNode();
+
+        clone.volume = 0.5;
+        clone.currentTime = 0;
+        clone.play().catch(() => {});
     }
 
     //Вкл/выкл звук

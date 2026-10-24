@@ -32,23 +32,23 @@ window.addEventListener("keydown", e => {
 
     switch (e.code) {
         case "ArrowUp":
-            controller.movePlayers(player, "UP");
+            controller.movePlayer(player, "UP");
             break;
         case "ArrowDown":
-            controller.movePlayers(player, "DOWN");
+            controller.movePlayer(player, "DOWN");
             break;
         case "ArrowLeft":
-            controller.movePlayers(player, "LEFT");
+            controller.movePlayer(player, "LEFT");
             break;
         case "ArrowRight":
-            controller.movePlayers(player, "RIGHT");
+            controller.movePlayer(player, "RIGHT");
             break;
     }
 });
 
 const swipeManager = new SwipeManager(direction => {
     const player = proxyModel.playerId === 1 ? proxyModel.player1 : proxyModel.player2;
-    controller.movePlayers(player, direction);
+    controller.movePlayer(player, direction);
 });
 
 swipeManager.init();

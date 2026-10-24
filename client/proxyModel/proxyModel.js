@@ -94,7 +94,7 @@ export class ProxyModel {
     }
 
     //Переместить игрока
-    movePlayers(player, direction) {
+    movePlayer(player, direction) {
         if (player.id === this.#state.playerId) {
             this.#ws.send(
                 JSON.stringify({

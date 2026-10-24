@@ -81,7 +81,7 @@ setInterval(() => {
         ws.isAlive = false;
         ws.ping();
     });
-}, 30000);
+}, 10000);
 
 //При подключении к серверу
 wss.on("connection", chanel => {
@@ -143,7 +143,7 @@ wss.on("connection", chanel => {
 
                 if (!player) return;
 
-                game.movePlayers(player, action.payload.direction);
+                game.movePlayer(player, action.payload.direction);
 
                 break;
         }

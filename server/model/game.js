@@ -232,7 +232,7 @@ export class Game {
     //Публичные методы
 
     //Переместить игроков
-    movePlayers(player, direction) {
+    movePlayer(player, direction) {
         const newPlayerPosition = this.#calculateNewPosition(player.position, direction);
         const checkingBorders = this.#checkBorders(newPlayerPosition, this.#settings.gridSize);
         const checkingOtherPlayer = this.#checkOtherPlayer(
