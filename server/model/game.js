@@ -166,7 +166,10 @@ export class Game {
             if (this.#status === GameStatuses.IN_PROGRESS) {
                 this.#attempts++;
 
-                if (this.#attempts >= this.#settings.attemptsToLose) this.#status = GameStatuses.LOSS;
+                if (this.#attempts >= this.#settings.attemptsToLose) {
+                    this.#status = GameStatuses.LOSS;
+                    clearInterval(this.#enemySetIntervalId);
+                }
 
                 this.#enemy.position = this.#moveEnemy(
                     this.#player1.position,
@@ -209,8 +212,8 @@ export class Game {
     }
 
     //Обработчик выйгрыша или перемещения врага
-    #handleWinOrRespawnEnemy(playerId) {
-        if (this.#score[playerId] >= this.#settings.pointsToWin) {
+    #handleWinOrRespawnEnemy() {
+        if (this.#score[1] + this.#score[2] >= this.#settings.pointsToWin) {
             clearInterval(this.#enemySetIntervalId);
             this.#status = GameStatuses.WIN;
         } else
@@ -225,7 +228,7 @@ export class Game {
     #handleEnemyCapture(playerId, newPlayerPosition) {
         if (newPlayerPosition.equal(this.#enemy.position)) {
             this.#score[playerId]++;
-            this.#handleWinOrRespawnEnemy(playerId);
+            this.#handleWinOrRespawnEnemy();
         }
     }
 
@@ -256,6 +259,8 @@ export class Game {
     start() {
         this.#createUnits();
         this.#status = GameStatuses.IN_PROGRESS;
+        this.#score["1"] = 0;
+        this.#score["2"] = 0;
         this.#runEnemyJumpInterval();
         this.#eventEmitter.emit("change");
     }
