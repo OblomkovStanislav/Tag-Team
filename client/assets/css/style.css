@@ -37,7 +37,7 @@ body {
     margin: 0 auto;
     max-width: 1182px;
     padding: 0 15px;
-    height: 100vh;
+    height: 100dvh;
 }
 
 .main-elements {
