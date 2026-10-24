@@ -6,6 +6,7 @@
 @import "components/modalComponent.css";
 @import "components/resultBlockComponent.css";
 @import "components/settingsComponent.css";
+@import "components/messageComponent.css";
 @import "components/gridComponent.css";
 
 body, #root {

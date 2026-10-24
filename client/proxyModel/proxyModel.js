@@ -8,6 +8,8 @@ export class ProxyModel {
     //Состояние
     #state = {
         playerId: null, //Идентификатор игрока
+        connectedPlayers: null, //Кол-во подключенных игроков
+        isServerFull: false,
         status: GameStatuses.SETTINGS, //Статус игры
         gridSize: null, //Размер игрового поля
         pointsToWin: null, //Кол-во очков для победы
@@ -25,14 +27,36 @@ export class ProxyModel {
         this.#ws = new WebSocket("wss://tag-team.onrender.com");
 
         this.#ws.addEventListener("message", event => {
-            this.#state = JSON.parse(event.data);
+            const data = JSON.parse(event.data);
+
+            if (data.type === "error" && data.payload.reason === "SERVER_FULL") {
+                this.#state.serverFull = true;
+                this.#eventEmitter.emit("change");
+                return;
+            }
+
+            if (data.type === "error") return;
+
+            this.#state = data;
             this.#eventEmitter.emit("change");
+        });
+
+        this.#ws.addEventListener("close", event => {
+            if (event.code === 1008) {
+                this.#state.serverFull = true;
+                this.#eventEmitter.emit("change");
+            }
         });
     }
 
     //Получить идентификатор игрока
     get playerId() {
         return this.#state.playerId;
+    }
+
+    //Получить кол-во подключенных игроков
+    get connectedPlayers() {
+        return this.#state.connectedPlayers || 1;
     }
 
     //Задать статус игры
@@ -110,10 +134,7 @@ export class ProxyModel {
 
     //Старт
     start() {
-        if (this.#ws.readyState !== WebSocket.OPEN) {
-            console.warn("Ждем подключения к серверу...");
-            return;
-        }
+        if (this.#ws.readyState !== WebSocket.OPEN) return;
 
         this.#ws.send(
             JSON.stringify({
@@ -129,6 +150,8 @@ export class ProxyModel {
 
     //Стоп
     stop() {
+        if (this.#ws.readyState !== WebSocket.OPEN) return;
+
         this.#ws.send(
             JSON.stringify({
                 type: "stop",

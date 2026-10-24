@@ -4,6 +4,7 @@ import {ResultBlockComponent} from "./components/resultBlockComponent/resultBloc
 import {ModalComponent} from "./components/modalComponent/modalComponent.js";
 import {GameStatuses} from "../proxyModel/gameStatuses.js";
 import {ToggleSoundComponent} from "./components/toggleSoundComponent/toggleSoundComponent.js";
+import {MessageComponent} from "./components/messageComponent/messageComponent.js";
 
 //Класс Вид
 export class View {
@@ -44,6 +45,13 @@ export class View {
         //Корневой элемент
         const rootElement = document.getElementById("root");
         rootElement.innerHTML = "";
+
+        if (model.isServerFull) {
+            const messageComponent = new MessageComponent("Извините, сервер переполнен!");
+            rootElement.appendChild(messageComponent.render());
+
+            return;
+        }
 
         //Компонент Переключатель звука
         const toggleSoundComponent = new ToggleSoundComponent("Звук");
