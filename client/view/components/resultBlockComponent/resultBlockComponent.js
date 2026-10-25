@@ -1,11 +1,15 @@
 //Класс Компонент Блок результатов
 export class ResultBlockComponent {
+    //Приватные свойства
+
     #title; //Заголовок
 
     //Конструктор класса
     constructor(title) {
         this.#title = title;
     }
+
+    //Публичные методы
 
     //Отрисовать компонент
     render(value) {

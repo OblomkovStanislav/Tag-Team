@@ -1,11 +1,15 @@
 //Класс Компонент Переключатель звука
 export class ToggleSoundComponent {
+    //Приватные свойства
+
     #title; //Заголовок
 
     //Конструктор класса
     constructor(title) {
         this.#title = title;
     }
+
+    //Публичные методы
 
     //Отрисовать компонент
     render(isMute, onMute) {

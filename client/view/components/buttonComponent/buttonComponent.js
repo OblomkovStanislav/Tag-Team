@@ -1,5 +1,7 @@
 //Класс Компонент Кнопка
 export class ButtonComponent {
+    //Приватные свойства
+
     #title; //Заголовок
     #style; //Стили
     #click; //Обратный вызов функции на событие "click"
@@ -10,6 +12,8 @@ export class ButtonComponent {
         this.#style = style;
         this.#click = click;
     }
+
+    //Публичные методы
 
     //Отрисовать компонент
     render() {

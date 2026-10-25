@@ -3,17 +3,22 @@ import {ButtonComponent} from "../buttonComponent/buttonComponent.js";
 
 //Класс Компонент Модальное окно
 export class ModalComponent {
+    //Приватные свойства
+
     #srcIcon; //Иконка
     #title; //Заголовок
     #text; //Текст
     #clickHandler; //Обратный вызов функции на событие "click"
 
+    //Конструктор класса
     constructor(srcIcon, title, text, clickHandler) {
         this.#srcIcon = srcIcon;
         this.#title = title;
         this.#text = text;
         this.#clickHandler = clickHandler;
     }
+
+    //Публичные методы
 
     //Отрисовать компонент
     render(score, attempts) {

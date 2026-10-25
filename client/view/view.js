@@ -8,6 +8,8 @@ import {MessageComponent} from "./components/messageComponent/messageComponent.j
 
 //Класс Вид
 export class View {
+    //Приватные методы
+
     //Задать настройки
     #setSettings(model) {
         let gridSizeValue = "0"; //Размер сетки
@@ -40,6 +42,8 @@ export class View {
         };
     }
 
+    //Публичные методы
+
     //Отрисовать вид
     render(model, isMute, callbacks) {
         //Корневой элемент
@@ -59,10 +63,16 @@ export class View {
 
         //Компонент Настройки
         if (model.playerId === 1) {
-            const settingsComponent = new SettingsComponent();
-            rootElement.appendChild(settingsComponent.render(model, callbacks));
+            if (model.connectedPlayers === 2) {
+                const settingsComponent = new SettingsComponent();
+                rootElement.appendChild(settingsComponent.render(model, callbacks));
 
-            this.#setSettings(model);
+                this.#setSettings(model);
+            }
+            else {
+                const messageComponent = new MessageComponent("Ожидаем, когда подключится второй игрок...");
+                rootElement.appendChild(messageComponent.render());
+            }
         }
         else if (model.playerId === 2 && model.status === GameStatuses.SETTINGS) {
             const messageComponent = new MessageComponent("Ожидаем, когда первый игрок начнет игру...");

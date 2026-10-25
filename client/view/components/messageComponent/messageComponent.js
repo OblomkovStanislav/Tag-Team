@@ -1,10 +1,17 @@
+//Класс Компонент Сообщение
 export class MessageComponent {
-    #message;
+    //Приватные свойства
 
+    #message; //Сообщение
+
+    //Конструктор класса
     constructor(message) {
         this.#message = message;
     }
 
+    //Публичные методы
+
+    //Отрисовать компонент
     render() {
         const messageComponent = document.createElement("div");
         messageComponent.classList.add("message-component");

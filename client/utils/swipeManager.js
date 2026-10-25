@@ -1,4 +1,7 @@
+//Класс Менеджер Swipe
 export class SwipeManager {
+    //Приватные свойства
+
     #onSwipe;
     #touchStartX = 0;
     #touchStartY = 0;
@@ -9,12 +12,7 @@ export class SwipeManager {
         this.#onSwipe = onSwipe;
     }
 
-    init() {
-        window.addEventListener("touchstart", this.#handleTouchStart, {passive: true});
-        window.addEventListener("touchmove", this.#handleTouchMove, {passive: true});
-        window.addEventListener("touchend", this.#handleTouchEnd, {passive: true});
-        window.addEventListener("touchcancel", this.#handleTouchEnd, {passive: true});
-    }
+    //Приватные методы
 
     #isInteractiveElement(target) {
         return target.closest("button, input, .settings-container");
@@ -53,4 +51,13 @@ export class SwipeManager {
     #handleTouchEnd = () => {
         this.#isSwiping = false;
     };
+
+    //Публичные методы
+
+    init() {
+        window.addEventListener("touchstart", this.#handleTouchStart, {passive: true});
+        window.addEventListener("touchmove", this.#handleTouchMove, {passive: true});
+        window.addEventListener("touchend", this.#handleTouchEnd, {passive: true});
+        window.addEventListener("touchcancel", this.#handleTouchEnd, {passive: true});
+    }
 }

@@ -1,11 +1,14 @@
 //Класс Компонент Выпадающий список
 export class SelectorComponent {
+    //Приватные свойства
+
     #id; //Идентификатор
     #label; //Надпись
     #disabled; //Флаг активности
     #options; //Опции
     #value; //Значение
 
+    //Конструктор класса
     constructor(id, label, disabled, options, value) {
         this.#id = id;
         this.#label = label;
@@ -13,6 +16,8 @@ export class SelectorComponent {
         this.#options = options;
         this.#value = value;
     }
+
+    //Публичные методы
 
     //Отрисовать компонент
     render() {

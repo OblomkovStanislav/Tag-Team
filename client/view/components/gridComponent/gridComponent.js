@@ -1,5 +1,7 @@
 //Класс Компонент Сетка
 export class GridComponent {
+    //Приватные свойства
+
     #imgEnemy; //Изображение врага
     #imgPlayer1; //Изображение игрока 1
     #imgPlayer2; //Изображение игрока 2
@@ -10,6 +12,8 @@ export class GridComponent {
         this.#imgPlayer1 = imgPlayer1;
         this.#imgPlayer2 = imgPlayer2;
     }
+
+    //Публичные методы
 
     //Отрисовать компонент
     render(model) {

@@ -2,6 +2,8 @@
 import {GameStatuses} from "./gameStatuses.js";
 
 export class ProxyModel {
+    //Приватные свойства
+
     #eventEmitter; //Эмиттер событий
     #ws; //Клиент веб-сокета
 
@@ -48,6 +50,8 @@ export class ProxyModel {
             }
         });
     }
+
+    //Публичные свойства
 
     //Получить идентификатор игрока
     get playerId() {
@@ -116,6 +120,8 @@ export class ProxyModel {
     get eventEmitter() {
         return this.#eventEmitter;
     }
+
+    //Публичные методы
 
     //Переместить игрока
     movePlayer(player, direction) {

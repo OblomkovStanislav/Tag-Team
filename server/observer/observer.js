@@ -1,6 +1,10 @@
 //Класс Эмиттер событий
 export class EventEmitter {
+    //Приватные свойства
+
     #subscribers = {}; //Подписчики на события
+
+    //Публичные методы
 
     //Подписаться на событие
     subscribe(eventName, callback) {
