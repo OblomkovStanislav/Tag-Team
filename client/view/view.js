@@ -58,10 +58,16 @@ export class View {
         rootElement.appendChild(toggleSoundComponent.render(isMute, callbacks.onMute));
 
         //Компонент Настройки
-        const settingsComponent = new SettingsComponent();
-        rootElement.appendChild(settingsComponent.render(model, callbacks));
+        if (model.playerId === 1) {
+            const settingsComponent = new SettingsComponent();
+            rootElement.appendChild(settingsComponent.render(model, callbacks));
 
-        this.#setSettings(model);
+            this.#setSettings(model);
+        }
+        else if (model.playerId === 2 && model.status === GameStatuses.SETTINGS) {
+            const messageComponent = new MessageComponent("Ожидаем, когда первый игрок начнет игру...");
+            rootElement.appendChild(messageComponent.render());
+        }
 
         //Контейнер для компонентов с результатами
         const resulContainerElement = document.createElement("div");

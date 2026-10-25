@@ -17,26 +17,21 @@ export class SettingsComponent {
 
         settingsComponent.appendChild(burgerMenuComponent.render(disabled));
 
-        if (model.playerId === 1) {
-            if (model.connectedPlayers === 2) {
-                //Компонент Кнопка Старт
-                const startButtonComponent = new ButtonComponent("НАЧАТЬ ИГРУ", "button start-button", callbacks.onStart);
 
-                //Компонент Кнопка Стоп
-                const stopButtonComponent = new ButtonComponent("ЗАВЕРШИТЬ ИГРУ", "button stop-button", callbacks.onStop);
+        if (model.connectedPlayers === 2) {
+            //Компонент Кнопка Старт
+            const startButtonComponent = new ButtonComponent("НАЧАТЬ ИГРУ", "button start-button", callbacks.onStart);
 
-                settingsComponent.appendChild(
-                    model.status === GameStatuses.SETTINGS ? startButtonComponent.render() : stopButtonComponent.render());
+            //Компонент Кнопка Стоп
+            const stopButtonComponent = new ButtonComponent("ЗАВЕРШИТЬ ИГРУ", "button stop-button", callbacks.onStop);
+
+            settingsComponent.appendChild(model.status === GameStatuses.SETTINGS ? startButtonComponent.render() : stopButtonComponent.render());
             }
-            else {
-                const messageComponent = new MessageComponent("Ожидаем, когда подключится второй игрок...");
-                settingsComponent.appendChild(messageComponent.render());
-            }
-        }
-        else if (model.playerId === 2 && model.status === GameStatuses.SETTINGS) {
-            const messageComponent = new MessageComponent("Ожидаем, когда первый игрок начнет игру...");
+        else {
+            const messageComponent = new MessageComponent("Ожидаем, когда подключится второй игрок...");
             settingsComponent.appendChild(messageComponent.render());
         }
+
 
         return settingsComponent;
     }
