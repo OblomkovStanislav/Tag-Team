@@ -269,6 +269,9 @@ export class Game {
     stop() {
         clearInterval(this.#enemySetIntervalId);
         this.#status = GameStatuses.SETTINGS;
+        this.#player1 = undefined;
+        this.#player2 = undefined;
+        this.#enemy = undefined;
         this.#score["1"] = 0;
         this.#score["2"] = 0;
         this.#attempts = 0;

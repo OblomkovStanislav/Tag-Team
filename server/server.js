@@ -72,6 +72,16 @@ const createDTO = playerId => {
 
 const wss = new WebSocketServer({port}); //Веб-сокет сервер
 
+const broadcastState = () => {
+    activeChannels.forEach((chanel, id) => {
+        if (chanel.readyState === chanel.OPEN) {
+            chanel.send(JSON.stringify(createDTO(id)));
+        }
+    });
+};
+
+game.eventEmitter.addEventListener("change", broadcastState);
+
 setInterval(() => {
     wss.clients.forEach(ws => {
         if (ws.isAlive === false) return ws.terminate();
@@ -80,14 +90,6 @@ setInterval(() => {
         ws.ping();
     });
 }, 10000);
-
-const broadcastState = () => {
-    activeChannels.forEach((chanel, id) => {
-        if (chanel.readyState === chanel.OPEN) {
-            chanel.send(JSON.stringify(createDTO(id)));
-        }
-    });
-};
 
 //При подключении к серверу
 wss.on("connection", chanel => {
@@ -102,8 +104,6 @@ wss.on("connection", chanel => {
 
     activeChannels.set(playerId, chanel);
     broadcastState();
-
-    game.eventEmitter.addEventListener("change", broadcastState);
 
     chanel.on("pong", () => {
         chanel.isAlive = true; // <-- Клиент ответил, он жив
@@ -152,10 +152,7 @@ wss.on("connection", chanel => {
     //При закрытии канала
     chanel.on("close", () => {
         activeChannels.delete(playerId);
-        game.eventEmitter.removeEventListener("change", broadcastState);
-
-        if (game.status === "IN_PROGRESS") game.stop();
-
+        game.stop();
         broadcastState();
     });
 
