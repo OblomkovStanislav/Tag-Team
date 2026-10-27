@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 @import "null.css";
+@import "components/headerComponent.css";
 @import "components/toggleSoundComponent.css";
 @import "components/burgerMenuComponent.css";
 @import "components/selectorComponent.css";
@@ -52,19 +53,6 @@ body {
     min-height: 0; /*Аналогичный фикс для flexbox*/
     overflow: hidden;
     gap: 10px;
-}
-
-.result-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 36px;
-    border-radius: 30px;
-    border: 1px solid #4C5E50;
-    background-color: rgba(57, 61, 55, 0.40);
-    margin: 20px auto;
-    max-width: 90%;
-    min-width: auto;
-    column-gap: 30px;
 }
 
 .button {

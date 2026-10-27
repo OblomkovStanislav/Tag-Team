@@ -60,20 +60,6 @@ export class ModalComponent {
 
         modalElements.appendChild(textModalElement);
 
-        //Элемент Результат элемента модального окна
-        const resultModalElement = document.createElement("div");
-        resultModalElement.classList.add("result-modal-element");
-
-        //Компонент Блок с результатами счета
-        const scoreResultBlockComponent = new ResultBlockComponent("Поймано: ");
-        resultModalElement.appendChild(scoreResultBlockComponent.render(score));
-
-        //Компонент Блок с результатами попыток
-        const attemptsResultBlockComponent = new ResultBlockComponent("Попыток: ");
-        resultModalElement.appendChild(attemptsResultBlockComponent.render(attempts));
-
-        modalElements.appendChild(resultModalElement);
-
         //Компонент Кнопка "Играть снова"
         const playAgainButtonComponent = new ButtonComponent("Ок", "button", this.#clickHandler);
         modalElements.appendChild(playAgainButtonComponent.render());

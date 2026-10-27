@@ -1,6 +1,7 @@
 .modal-component {
     margin: 0 auto;
-    position: relative;max-width: 280px;
+    position: relative;
+    max-width: 280px;
     max-height: 550px;
 }
 
@@ -22,9 +23,9 @@
 .modal-elements {
     align-self: center;
     position: relative;
-    padding: 71px 24px 36px; /*Верхний отступ 71px, чтобы текст не наезжал на декоративный круг*/
+    padding: 71px 20px 20px; /*Верхний отступ 71px, чтобы текст не наезжал на декоративный круг*/
     width: 280px;
-    height: 407px;
+    height: 390px;
     text-align: center;
     z-index: 10;
 }
@@ -37,7 +38,7 @@
     top: 0;
     left: 0;
     background-image: url("../../img/icons/shirt.svg");
-    background-size: cover;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center center;
     z-index: -1;
@@ -56,13 +57,6 @@
     font-weight: 400;
     line-height: 24px;
     margin-bottom: 24px;
-}
-
-.result-modal-element {
-    margin-bottom: 68px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
 }
 
 /*Уменьшаем модальное окно на мобильных устройствах*/

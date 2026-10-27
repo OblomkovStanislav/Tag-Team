@@ -1,33 +1,83 @@
 //Класс Компонент Блок результатов
 export class ResultBlockComponent {
-    //Приватные свойства
-
-    #title; //Заголовок
-
-    //Конструктор класса
-    constructor(title) {
-        this.#title = title;
-    }
-
-    //Публичные методы
-
     //Отрисовать компонент
-    render(value) {
+    render(imgEnemy, imgPlayer1, imgPlayer2, score, attempts) {
         const resultBlockComponent = document.createElement("div");
+        resultBlockComponent.classList.add("result-block-component")
 
-        //Элемент Заголовок
-        const titleResultBlockElement = document.createElement("span");
-        titleResultBlockElement.classList.add("title-result-block-element");
-        titleResultBlockElement.textContent = this.#title;
+        const caughtSectionElement = document.createElement("div");
+        caughtSectionElement.classList.add(".caught-section-element");
 
-        resultBlockComponent.appendChild(titleResultBlockElement);
+        const titleCaughtElement = document.createElement("span");
+        titleCaughtElement.classList.add("title-result-block-element");
+        titleCaughtElement.textContent = "ПОЙМАНО";
 
-        //Элемент Значение
-        const valueResultBlockElement = document.createElement("span");
-        valueResultBlockElement.classList.add("value-result-block-element");
-        valueResultBlockElement.textContent = value;
+        caughtSectionElement.appendChild(titleCaughtElement);
 
-        resultBlockComponent.appendChild(valueResultBlockElement);
+        const playerListElement = document.createElement("div");
+        playerListElement.classList.add("players-list-element");
+
+        const player1ContainerElement = document.createElement("div");
+        player1ContainerElement.classList.add("player-container-element");
+
+        const player1AvatarElement = document.createElement("img");
+        player1AvatarElement.classList.add("player-avatar-element");
+        player1AvatarElement.src = imgPlayer1;
+
+        const player1ScoreElement = document.createElement("span");
+        player1ScoreElement.classList.add("value-result-block-element");
+        player1ScoreElement.textContent = score["1"];
+
+        player1ContainerElement.appendChild(player1AvatarElement);
+        player1ContainerElement.appendChild(player1ScoreElement);
+
+        playerListElement.appendChild(player1ContainerElement);
+
+        const player2ContainerElement = document.createElement("div");
+        player2ContainerElement.classList.add("player-container-element");
+
+        const player2AvatarElement = document.createElement("img");
+        player2AvatarElement.classList.add("player-avatar-element");
+        player2AvatarElement.src = imgPlayer2;
+
+        const player2ScoreElement = document.createElement("span");
+        player2ScoreElement.classList.add("value-result-block-element");
+        player2ScoreElement.textContent = score["2"];
+
+        player2ContainerElement.appendChild(player2AvatarElement);
+        player2ContainerElement.appendChild(player2ScoreElement);
+
+        playerListElement.appendChild(player2ContainerElement);
+
+        caughtSectionElement.appendChild(playerListElement);
+
+        const attemptsSectionElement = document.createElement("div");
+        attemptsSectionElement.classList.add("attempts-section-element");
+
+        const titleAttemptsElement = document.createElement("span");
+        titleAttemptsElement.classList.add("title-result-block-element");
+        titleAttemptsElement.textContent = "ПОПЫТОК";
+
+        attemptsSectionElement.appendChild(titleAttemptsElement);
+
+        const enemyContainerElement = document.createElement("div");
+        enemyContainerElement.classList.add("player-container-element");
+
+        const enemyAvatarElement = document.createElement("img");
+        enemyAvatarElement.classList.add("player-avatar-element");
+        enemyAvatarElement.src = imgEnemy;
+
+        const valueAttemptsElement = document.createElement("span");
+        valueAttemptsElement.classList.add("value-result-block-element");
+        valueAttemptsElement.textContent = attempts;
+
+        enemyContainerElement.appendChild(enemyAvatarElement);
+        enemyContainerElement.appendChild(valueAttemptsElement);
+
+        attemptsSectionElement.appendChild(enemyContainerElement);
+
+        resultBlockComponent.appendChild(caughtSectionElement);
+        resultBlockComponent.appendChild(attemptsSectionElement);
 
         return resultBlockComponent;
     }

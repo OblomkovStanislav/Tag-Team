@@ -3,8 +3,8 @@ import {SettingsComponent} from "./components/settingsComponent/settingsComponen
 import {ResultBlockComponent} from "./components/resultBlockComponent/resultBlockComponent.js";
 import {ModalComponent} from "./components/modalComponent/modalComponent.js";
 import {GameStatuses} from "../proxyModel/gameStatuses.js";
-import {ToggleSoundComponent} from "./components/toggleSoundComponent/toggleSoundComponent.js";
 import {MessageComponent} from "./components/messageComponent/messageComponent.js";
+import {HeaderComponent} from "./components/headerComponent/headerComponent.js";
 
 //Класс Вид
 export class View {
@@ -46,6 +46,11 @@ export class View {
 
     //Отрисовать вид
     render(model, isMute, callbacks) {
+        const imgEnemy = "./assets/img/icons/goose.svg";
+        const imgPlayer1 = "./assets/img/icons/man01.svg";
+        const imgPlayer2 = "./assets/img/icons/man02.svg";
+
+
         //Корневой элемент
         const rootElement = document.getElementById("root");
         rootElement.innerHTML = "";
@@ -57,9 +62,11 @@ export class View {
             return;
         }
 
-        //Компонент Переключатель звука
-        const toggleSoundComponent = new ToggleSoundComponent("Звук");
-        rootElement.appendChild(toggleSoundComponent.render(isMute, callbacks.onMute));
+        const headerComponent = new HeaderComponent();
+
+        rootElement.appendChild(headerComponent.render(model.playerId === 1 ? imgPlayer1
+            : model.playerId === 2 ? imgPlayer2
+                : imgEnemy, isMute, callbacks.onMute));
 
         //Компонент Настройки
         if (model.playerId === 1) {
@@ -79,31 +86,14 @@ export class View {
             rootElement.appendChild(messageComponent.render());
         }
 
-        //Контейнер для компонентов с результатами
-        const resulContainerElement = document.createElement("div");
-        resulContainerElement.classList.add("result-container");
-
-        //Компонент Блока с результатами счета
-        const scoreResultBlockComponent = new ResultBlockComponent("Поймано: ");
-
-        if (model.score)
-            resulContainerElement.appendChild(
-                scoreResultBlockComponent.render(String(Number(model.score["1"]) + Number(model.score["2"]))),
-            );
-
-        //Компонент Блока с результатами попыток
-        const attemptsResultBlockComponent = new ResultBlockComponent("Попыток: ");
-        resulContainerElement.appendChild(attemptsResultBlockComponent.render(model.attempts));
-
-        rootElement.appendChild(resulContainerElement);
+        if (model.score !== null && model.attempts !== null) {
+            const resultBlockComponent = new ResultBlockComponent();
+            rootElement.appendChild(resultBlockComponent.render(imgEnemy, imgPlayer1, imgPlayer2, model.score, model.attempts));
+        }
 
         switch (model.status) {
             case GameStatuses.IN_PROGRESS:
-                const gridComponent = new GridComponent(
-                    "./assets/img/icons/goose.svg",
-                    "./assets/img/icons/man01.svg",
-                    "./assets/img/icons/man02.svg",
-                );
+                const gridComponent = new GridComponent(imgEnemy, imgPlayer1, imgPlayer2);
 
                 rootElement.appendChild(gridComponent.render(model));
 
