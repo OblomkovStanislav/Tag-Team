@@ -18,10 +18,10 @@ export class ResultBlockComponent {
         playerListElement.classList.add("players-list-element");
 
         const player1ContainerElement = document.createElement("div");
-        player1ContainerElement.classList.add("player-container-element");
+        player1ContainerElement.classList.add("unit-container-element");
 
         const player1AvatarElement = document.createElement("img");
-        player1AvatarElement.classList.add("player-avatar-element");
+        player1AvatarElement.classList.add("unit-avatar-element");
         player1AvatarElement.src = imgPlayer1;
 
         const player1ScoreElement = document.createElement("span");
@@ -34,10 +34,10 @@ export class ResultBlockComponent {
         playerListElement.appendChild(player1ContainerElement);
 
         const player2ContainerElement = document.createElement("div");
-        player2ContainerElement.classList.add("player-container-element");
+        player2ContainerElement.classList.add("unit-container-element");
 
         const player2AvatarElement = document.createElement("img");
-        player2AvatarElement.classList.add("player-avatar-element");
+        player2AvatarElement.classList.add("unit-avatar-element");
         player2AvatarElement.src = imgPlayer2;
 
         const player2ScoreElement = document.createElement("span");
@@ -61,10 +61,10 @@ export class ResultBlockComponent {
         attemptsSectionElement.appendChild(titleAttemptsElement);
 
         const enemyContainerElement = document.createElement("div");
-        enemyContainerElement.classList.add("player-container-element");
+        enemyContainerElement.classList.add("unit-container-element");
 
         const enemyAvatarElement = document.createElement("img");
-        enemyAvatarElement.classList.add("player-avatar-element");
+        enemyAvatarElement.classList.add("unit-avatar-element");
         enemyAvatarElement.src = imgEnemy;
 
         const valueAttemptsElement = document.createElement("span");

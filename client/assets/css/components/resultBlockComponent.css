@@ -6,7 +6,7 @@
     background-color: rgba(57, 61, 55, 0.40);
     border: 1px solid #4C5E50;
     border-radius: 30px;
-    margin: 20px auto;
+    margin: 10px auto;
     width: fit-content;
     gap: 40px;
 }
@@ -38,14 +38,13 @@
     margin-top: 5px;
 }
 
-
-.player-container-element {
+.unit-container-element {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.player-avatar-element {
+.unit-avatar-element {
     width: 24px;
     height: 24px;
     border-radius: 50%;

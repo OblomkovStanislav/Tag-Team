@@ -2,20 +2,19 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
-    height: calc(100vh - 200px); /*200px — резервируем место под панель настроек и счет сверху*/
     min-height: 0;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
 }
 
 .grid-element {
     display: grid;
     gap: 5px;
-    width: 100%;
-    max-width: min(100%, 600px); /*Ограничиваем максимальную ширину поля, чтобы на ПК оно не растягивалось*/
-    aspect-ratio: 1 / 1; /*Держим поле идеально квадратным*/
+    width: min(100%, calc(100dvh - 380px));
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
     margin: 0 auto;
 }
 
