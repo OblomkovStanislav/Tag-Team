@@ -21,7 +21,7 @@ export class ModalComponent {
     //Публичные методы
 
     //Отрисовать компонент
-    render(score, attempts) {
+    render(imgEnemy, imgPlayer1, imgPlayer2, score, attempts) {
         const modalComponent = document.createElement("div");
         modalComponent.classList.add("modal-component");
 
@@ -53,6 +53,9 @@ export class ModalComponent {
 
         modalElements.appendChild(titleModalElement);
 
+        const resultBlockComponent = new ResultBlockComponent();
+        modalElements.appendChild(resultBlockComponent.render(imgEnemy, imgPlayer1, imgPlayer2, score, attempts));
+
         //Элемент Текст элемента модального окна
         const textModalElement = document.createElement("div");
         textModalElement.textContent = this.#text;
@@ -61,7 +64,7 @@ export class ModalComponent {
         modalElements.appendChild(textModalElement);
 
         //Компонент Кнопка "Играть снова"
-        const playAgainButtonComponent = new ButtonComponent("Ок", "button", this.#clickHandler);
+        const playAgainButtonComponent = new ButtonComponent("Ок", "button mini-button", this.#clickHandler);
         modalElements.appendChild(playAgainButtonComponent.render());
 
         modalComponent.appendChild(modalElements);

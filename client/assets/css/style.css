@@ -71,6 +71,10 @@ body {
     z-index: 20;
 }
 
+.mini-button {
+    margin-bottom: 50px;
+}
+
 .button:hover {
     background-color: #5dda3c;
 }

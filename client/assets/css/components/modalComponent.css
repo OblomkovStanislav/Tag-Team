@@ -1,19 +1,39 @@
 .modal-component {
-    margin: 0 auto;
-    position: relative;
-    max-width: 280px;
-    max-height: 550px;
+    /* Позиционируем поверх всего экрана */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+
+    /* Центрируем содержимое (круг + карточку) */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* Затемняем фон, чтобы выделить окно */
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px); /* Легкое размытие фона (опционально) */
+
+    z-index: 1000; /* Чтобы окно было поверх всех элементов */
+    margin: 0; /* Убираем старый margin: auto */
 }
 
-/*Декоративный круг под иконкой*/
 .decoration-modal-element {
     position: relative;
-    top: 53px;
-    left: 68px;
-    width: 144px;
-    height: 144px;
+    top: 0;
+    left: 0;
+    transform: none;
+
+    /* Отрицательный отступ снизу натягивает круг на карточку (144px / 2 = 72px) */
+    margin-bottom: -100px;
+    z-index: 20;
+
+    width: 120px;
+    height: 120px;
     border: 2px solid #999B95;
-    background-color: rgba(110, 117, 102, 0.3);
+    background-color: rgba(110, 117, 102, 0.3); /* Сделал фон чуть плотнее */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -21,13 +41,14 @@
 }
 
 .modal-elements {
-    align-self: center;
     position: relative;
-    padding: 71px 20px 20px; /*Верхний отступ 71px, чтобы текст не наезжал на декоративный круг*/
-    width: 280px;
-    height: 390px;
+    padding: 120px 20px 30px;
+    width: 90%;
+    max-width: 280px;
+    height: auto; /* Высота по содержимому */
     text-align: center;
     z-index: 10;
+    box-sizing: border-box;
 }
 
 /*Фоновая картинка (рубашка) за всем контентом*/
@@ -46,10 +67,10 @@
 }
 
 .title-modal-element {
-    font-size: 48px;
+    font-size: 42px;
     font-weight: 600;
-    line-height: 60px;
-    margin-bottom: 4px;
+    line-height: 50px;
+    margin-bottom: 5px;
 }
 
 .text-modal-element {
@@ -57,13 +78,4 @@
     font-weight: 400;
     line-height: 24px;
     margin-bottom: 24px;
-}
-
-/*Уменьшаем модальное окно на мобильных устройствах*/
-@media screen and (max-height: 750px) {
-    .modal-component {
-        transform: scale(0.75);
-        transform-origin: top center; /*Сжимаем от верхнего центра, чтобы окно не уезжало вниз*/
-        max-height: 450px;
-    }
 }

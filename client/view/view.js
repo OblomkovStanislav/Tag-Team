@@ -108,7 +108,7 @@ export class View {
                 );
 
                 rootElement.appendChild(
-                    modalWin.render(String(Number(model.score["1"]) + Number(model.score["2"])), model.attempts),
+                    modalWin.render(imgEnemy, imgPlayer1, imgPlayer2, model.score, model.attempts),
                 );
 
                 break;
@@ -121,7 +121,7 @@ export class View {
                 );
 
                 rootElement.appendChild(
-                    modalLoss.render(String(Number(model.score["1"]) + Number(model.score["2"])), model.attempts),
+                    modalLoss.render(imgEnemy, imgPlayer1, imgPlayer2, model.score, model.attempts),
                 );
 
                 break;
