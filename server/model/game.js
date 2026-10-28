@@ -21,7 +21,7 @@ export class Game {
         },
 
         pointsToWin: 3, //Кол-во очков для победы
-        attemptsToLose: 1000, //кол-во попыток для проигрыша
+        attemptsToLose: 6, //кол-во попыток для проигрыша
         enemyJumpInterval: 1000, //Интервал между прыжками врага
     };
 
