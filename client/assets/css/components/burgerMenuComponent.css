@@ -61,6 +61,10 @@
 
 /*=====МОБИЛЬНАЯ ВЕРСИЯ=====*/
 @media screen and (max-width: 768px) {
+    .navbar.hide-on-mobile {
+        display: none;
+    }
+
     .hamburger {
         display: flex;
     }

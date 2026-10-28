@@ -7,6 +7,8 @@ export class BurgerMenuComponent {
         const burgerMenuComponent = document.createElement("div");
         burgerMenuComponent.classList.add("navbar");
 
+        if (disabled) burgerMenuComponent.classList.add("hide-on-mobile");
+
         burgerMenuComponent.innerHTML = `
         <div class="menu-wrapper">
                         <input type="checkbox" id="menu-checkbox">

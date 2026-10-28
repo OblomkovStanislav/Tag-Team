@@ -36,11 +36,12 @@ export class View {
         };
 
         const pointsToWinValue = Number(document.getElementById("points-to-win").value);
+        const attemptsToLoseValue = Number(document.getElementById("attempts-to-lose").value);
 
         return {
             gridSize: gridSizes[gridSizeValue],
             pointsToWin: (isNaN(pointsToWinValue) || pointsToWinValue === 0) ? 3 : pointsToWinValue,
-            attemptsToLose: Number(document.getElementById("attempts-to-lose").value),
+            attemptsToLose: (isNaN(attemptsToLoseValue) || attemptsToLoseValue === 0) ? 6 : attemptsToLoseValue
         };
     }
 
@@ -48,6 +49,8 @@ export class View {
 
     //Отрисовать вид
     render(model, isMute, callbacks) {
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
         const imgEnemy = "./assets/img/icons/goose.svg";
         const imgPlayer1 = "./assets/img/icons/man01.svg";
         const imgPlayer2 = "./assets/img/icons/man02.svg";
