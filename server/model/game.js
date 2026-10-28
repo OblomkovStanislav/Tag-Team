@@ -3,7 +3,10 @@ import {Position} from "./position.js";
 import {Player} from "./player.js";
 import {Enemy} from "./enemy.js";
 
-//Класс Игра
+/**
+ * Основной класс игры.
+ * Хранит состояние игрового поля, юнитов, очков и таймеров.
+ */
 export class Game {
     //Приватные свойства
 
@@ -40,7 +43,11 @@ export class Game {
     #numberUtility; //Утилитарная функция для работы с числами
     #eventEmitter; //Эмиттер событий
 
-    //Конструктор класса
+    /**
+     * Создает экземпляр игры.
+     * @param {NumberUtility} numberUtility - Утилита для генерации случайных чисел.
+     * @param {EventEmitter} eventEmitter - Эмиттер для оповещения об изменениях состояния.
+     */
     constructor(numberUtility, eventEmitter) {
         this.#numberUtility = numberUtility;
         this.#eventEmitter = eventEmitter;
@@ -58,7 +65,12 @@ export class Game {
         return this.#status;
     }
 
-    //Задать размер игрового поля
+    /**
+     * Устанавливает новые размеры игрового поля.
+     * @param {Object} size - Объект с размерами.
+     * @param {number} size.columns - Количество колонок.
+     * @param {number} size.rows - Количество строк.
+     */
     set gridSize({columns, rows}) {
         this.#settings.gridSize.columns = columns;
         this.#settings.gridSize.rows = rows;
@@ -121,7 +133,14 @@ export class Game {
 
     //Приватные методы
 
-    //Получить случайную позицию
+    /**
+     * Генерирует случайную свободную позицию на поле.
+     * Если сгенерированная позиция занята одной из переданных Units,
+     * функция вызывается рекурсивно, пока не найдет свободную.
+     *
+     * @param {Array<Position>} [positionsUnits] - Массив позиций, которые нужно избегать.
+     * @returns {Position} Новая свободная позиция.
+     */
     #getRandomPosition(positionsUnits) {
         const newRandomPosition = new Position(
             this.#numberUtility.getRandomIntegerNumber(0, this.#settings.gridSize.columns),
@@ -139,7 +158,13 @@ export class Game {
         return newRandomPosition;
     }
 
-    //Переместить врага
+    /**
+     * Перемещает врага на новую случайную позицию.
+     * @param {Position} firstPlayerPosition - Позиция первого игрока.
+     * @param {Position} secondPlayerPosition - Позиция второго игрока.
+     * @param {Position} [enemyPosition] - Текущая позиция врага (чтобы не остаться на месте).
+     * @returns {Position} Новая позиция врага.
+     */
     #moveEnemy(firstPlayerPosition, secondPlayerPosition, enemyPosition) {
         let newEnemyPosition;
 
@@ -150,7 +175,10 @@ export class Game {
         return newEnemyPosition;
     }
 
-    //Создать Units
+    /**
+     * Создает новых игроков и врага в начале игры.
+     * Расставляет их на случайные свободные позиции.
+     */
     #createUnits() {
         this.#player1 = new Player(1, this.#getRandomPosition(undefined));
         this.#player2 = new Player(2, this.#getRandomPosition([this.#player1.position]));
@@ -158,7 +186,11 @@ export class Game {
         this.#eventEmitter.emit("change");
     }
 
-    //Запустить интервал между прыжками врага
+    /**
+     * Запускает интервал, с которым враг прыгает по полю.
+     * На каждом тике увеличивает счетчик попыток. Если попытки кончились —
+     * меняет статус на LOSS и останавливает таймер.
+     */
     #runEnemyJumpInterval() {
         this.#attempts = 0;
 
@@ -182,7 +214,12 @@ export class Game {
         }, this.#settings.enemyJumpInterval);
     }
 
-    //Посчитать новую позицию игрока!!!
+    /**
+     * Вычисляет координаты новой позиции игрока после шага.
+     * @param {Position} playerPosition - Текущая позиция игрока.
+     * @param {'LEFT'|'RIGHT'|'UP'|'DOWN'} direction - Направление движения.
+     * @returns {Position} Новая позиция после шага.
+     */
     #calculateNewPosition(playerPosition, direction) {
         const move = {
             LEFT: {x: -1, y: 0},
@@ -194,7 +231,12 @@ export class Game {
         return new Position(playerPosition.x + move[direction].x, playerPosition.y + move[direction].y);
     }
 
-    //Проверить на столкновение игрока с границами поля
+    /**
+     * Проверяет, не выходит ли новая позиция за границы поля.
+     * @param {Position} newPlayerPosition - Проверяемая позиция.
+     * @param {{columns: number, rows: number}} gridSize - Размеры поля.
+     * @returns {boolean} true, если позиция в пределах поля.
+     */
     #checkBorders(newPlayerPosition, gridSize) {
         const {columns, rows} = gridSize;
 
@@ -206,12 +248,21 @@ export class Game {
         );
     }
 
-    //Проверить игрока на столкновение с другим игроком
+    /**
+     * Проверяет, не столкнулся ли игрок с другим игроком.
+     * @param {Position} newPlayerPosition - Новая позиция шагающего игрока.
+     * @param {Position} otherPlayerPosition - Позиция другого игрока.
+     * @returns {boolean} true, если клетка свободна от другого игрока.
+     */
     #checkOtherPlayer(newPlayerPosition, otherPlayerPosition) {
         return !otherPlayerPosition.equal(newPlayerPosition);
     }
 
-    //Обработчик выйгрыша или перемещения врага
+    /**
+     * Обрабатывает условие победы или перемещает врага.
+     * Если сумма очков достигает цели, останавливает таймер и ставит WIN.
+     * В противном случае просто спавнит врага в новом месте.
+     */
     #handleWinOrRespawnEnemy() {
         if (this.#score[1] + this.#score[2] >= this.#settings.pointsToWin) {
             clearInterval(this.#enemySetIntervalId);
@@ -224,7 +275,12 @@ export class Game {
             );
     }
 
-    //Обработчик столкновения игрока с врагом - СОКРАТИТЬ
+    /**
+     * Проверяет, поймал ли игрок врага.
+     * Если позиции совпали, начисляет очко и вызывает обработчик победы/респавна.
+     * @param {number} playerId - ID игрока (1 или 2).
+     * @param {Position} newPlayerPosition - Позиция, куда шагнул игрок.
+     */
     #handleEnemyCapture(playerId, newPlayerPosition) {
         if (newPlayerPosition.equal(this.#enemy.position)) {
             this.#score[playerId]++;
@@ -234,7 +290,12 @@ export class Game {
 
     //Публичные методы
 
-    //Переместить игроков
+    /**
+     * Перемещает игрока в указанном направлении.
+     * Проверяет границы поля и столкновение с другим игроком.
+     * @param {Player} player - Объект игрока.
+     * @param {'LEFT'|'RIGHT'|'UP'|'DOWN'} direction - Направление движения.
+     */
     movePlayer(player, direction) {
         const newPlayerPosition = this.#calculateNewPosition(player.position, direction);
         const checkingBorders = this.#checkBorders(newPlayerPosition, this.#settings.gridSize);
@@ -255,7 +316,10 @@ export class Game {
         }
     }
 
-    //Старт игры
+    /**
+     * Запускает игру. Создает юнитов, обнуляет очки,
+     * устанавливает статус IN_PROGRESS и запускает таймер врага.
+     */
     start() {
         this.#createUnits();
         this.#status = GameStatuses.IN_PROGRESS;
@@ -265,7 +329,10 @@ export class Game {
         this.#eventEmitter.emit("change");
     }
 
-    //Стоп игры
+    /**
+     * Останавливает игру. Сбрасывает таймер, удаляет юнитов,
+     * обнуляет очки и возвращает статус в SETTINGS.
+     */
     stop() {
         clearInterval(this.#enemySetIntervalId);
         this.#status = GameStatuses.SETTINGS;

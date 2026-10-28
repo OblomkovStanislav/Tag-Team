@@ -24,7 +24,7 @@ export class NumberUtility {
      * console.log(randomNumber); // 0, 1, 2, 3, 4
      */
 
-    //Получить случайное целове число
+    //Получить случайное целое число
     getRandomIntegerNumber(fromInclusive, toExclusive) {
         return Math.floor(Math.random() * (toExclusive - fromInclusive)) + fromInclusive;
     }

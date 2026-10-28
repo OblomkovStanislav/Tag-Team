@@ -1,26 +1,58 @@
 //Класс Контроллер
 import {GameStatuses} from "../proxyModel/gameStatuses.js";
 
+/**
+ * Контроллер (Controller).
+ * Связывает модель (ProxyModel), представление (View) и менеджер звука (AudioManager).
+ * Обрабатывает действия пользователя, обновляет интерфейс и управляет звуковыми эффектами.
+ */
 export class Controller {
     //Приватные свойства
 
-    #view; //Вид
-    #model; //Модель
-    #audio; //Звук
+    /**
+     * Представление (интерфейс игры).
+     * @type {View}
+     */
+    #view;
 
-    //Предыдущая позиция врага
+    /**
+     * Модель данных игры (связь с сервером).
+     * @type {ProxyModel}
+     */
+    #model;
+
+    /**
+     * Менеджер звуковых эффектов.
+     * @type {AudioManager}
+     */
+    #audio;
+
+    /**
+     * Предыдущая позиция врага.
+     * Используется для отслеживания прыжков и воспроизведения звука.
+     * @type {{x: number, y: number}}
+     */
     #prevEnemyPosition = {
         x: 0,
         y: 0,
     };
 
-    //Предыдущий счет
+    /**
+     * Предыдущий счет игроков.
+     * Используется для отслеживания поимки гуся и воспроизведения звука.
+     * @type {{1: number, 2: number}}
+     */
     #prevScore = {
         1: 0,
         2: 0,
     };
 
-    //Конструктор класса
+    /**
+     * Создает экземпляр контроллера.
+     * @param {View} view - Объект представления.
+     * @param {ProxyModel} model - Объект модели.
+     * @param {AudioManager} audio - Объект менеджера звука.
+     */
     constructor(view, model, audio) {
         this.#view = view;
         this.#model = model;
@@ -29,21 +61,35 @@ export class Controller {
 
     //Приватные методы
 
+    /**
+     * Инициализирует состояние звука в localStorage, если его там нет.
+     */
     #initIsMute() {
         if (localStorage.getItem("isMute") === null) {
             localStorage.setItem("isMute", JSON.stringify(Boolean(false)));
         }
     }
 
+    /**
+     * Сохраняет состояние звука в localStorage.
+     * @param {boolean} value - true, если звук выключен.
+     */
     #saveIsMute(value) {
         localStorage.setItem("isMute", JSON.stringify(Boolean(value)));
     }
 
+    /**
+     * Загружает состояние звука из localStorage.
+     * @returns {boolean} true, если звук выключен.
+     */
     #loadIsMute() {
         return JSON.parse(localStorage.getItem("isMute"));
     }
 
-    //Отрисовать
+    /**
+     * Отрисовывает интерфейс, передавая в View модель и колбэки для кнопок.
+     * Также синхронизирует текущее состояние звука с сохраненным в localStorage.
+     */
     #render() {
         if (this.#audio.isMute !== this.#loadIsMute()) this.#audio.mute();
 
@@ -54,13 +100,17 @@ export class Controller {
         });
     }
 
-    //Проверить статус
+    /**
+     * Проигрывает звуки победы или поражения при смене статуса игры.
+     */
     #checkStatus() {
         if (this.#model.status === GameStatuses.WIN) this.#audio.play("win");
         if (this.#model.status === GameStatuses.LOSS) this.#audio.play("loss");
     }
 
-    //Проверить был ли прыжок врага
+    /**
+     * Проверяет изменение позиции врага и проигрывает звук прыжка.
+     */
     #checkJumpEnemy() {
         if (!this.#model.enemy) return;
 
@@ -73,7 +123,9 @@ export class Controller {
         this.#prevEnemyPosition = {...this.#model.enemy.position};
     }
 
-    //Проверить изменился ли счет
+    /**
+     * Проверяет изменение счета и проигрывает звук поимки гуся.
+     */
     #checkScore() {
         if (!this.#model.score) return;
 
@@ -83,7 +135,10 @@ export class Controller {
         this.#prevScore = {...this.#model.score};
     }
 
-    //Обработчик старта
+    /**
+     * Обработчик нажатия на кнопку старта.
+     * Считывает настройки из интерфейса, передает их в модель и запускает игру.
+     */
     #handleStart() {
         this.#prevScore["1"] = 0;
         this.#prevScore["2"] = 0;
@@ -95,7 +150,9 @@ export class Controller {
         this.#model.start();
     }
 
-    //Обработчик стоп
+    /**
+     * Обработчик нажатия на кнопку завершения игры.
+     */
     #handleStop() {
         this.#prevScore["1"] = 0;
         this.#prevScore["2"] = 0;
@@ -103,20 +160,29 @@ export class Controller {
         this.#model.stop();
     }
 
-    //Вкл/выкл звук
+    /**
+     * Переключает режим звука и перерисовывает интерфейс для обновления иконки.
+     */
     #muteAudio() {
         this.#saveIsMute(!this.#audio.isMute);
         this.#audio.mute();
         this.#render();
     }
 
-    //Инициализировать
+    //Публичные методы
+
+    /**
+     * Инициализирует контроллер при запуске приложения.
+     */
     init() {
         this.#initIsMute();
         this.#render();
     }
 
-    //Обновить
+    /**
+     * Вызывается при каждом обновлении состояния модели.
+     * Перерисовывает интерфейс и проверяет необходимость проигрывания звуков.
+     */
     update() {
         this.#render();
         this.#checkStatus();
@@ -124,7 +190,13 @@ export class Controller {
         this.#checkScore();
     }
 
-    //Переместить игрока
+    /**
+     * Обрабатывает перемещение игрока.
+     * Передает команду в модель и проигрывает звук шага.
+     *
+     * @param {PlayerData} player - Объект игрока.
+     * @param {'LEFT'|'RIGHT'|'UP'|'DOWN'} direction - Направление движения.
+     */
     movePlayer(player, direction) {
         this.#model.movePlayer(player, direction);
         this.#audio.play("move");
