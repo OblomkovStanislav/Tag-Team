@@ -86,9 +86,19 @@ export class ProxyModel {
         this.#state.pointsToWin = pointsToWin;
     }
 
+    //Получить кол-во очков для победы
+    get pointsToWin() {
+        return this.#state.pointsToWin;
+    }
+
     //Задать кол-во попыток для проигрыша
     set attemptsToLose(attemptsToLose) {
         this.#state.attemptsToLose = attemptsToLose;
+    }
+
+    //Получить кол-во попыток для проигрыша
+    get attemptsToLose() {
+        return this.#state.attemptsToLose;
     }
 
     //Получить игрока 1

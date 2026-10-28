@@ -21,8 +21,8 @@ export class View {
 
         document.getElementById("grid-size").value = gridSizeValue;
 
-        if (model.pointsToWin) document.getElementById("points-to-win").value = model.pointsToWin;
-        if (model.attemptsToLose) document.getElementById("attempts-to-lose").value = model.attemptsToLose;
+        if (model.pointsToWin !== null && model.pointsToWin !== undefined) document.getElementById("points-to-win").value = model.pointsToWin;
+        if (model.attemptsToLose !== null && model.attemptsToLose !== undefined) document.getElementById("attempts-to-lose").value = model.attemptsToLose;
     }
 
     //Получить настройки
@@ -35,9 +35,11 @@ export class View {
             2: {columns: 6, rows: 6},
         };
 
+        const pointsToWinValue = Number(document.getElementById("points-to-win").value);
+
         return {
             gridSize: gridSizes[gridSizeValue],
-            pointsToWin: Number(document.getElementById("points-to-win").value),
+            pointsToWin: (isNaN(pointsToWinValue) || pointsToWinValue === 0) ? 3 : pointsToWinValue,
             attemptsToLose: Number(document.getElementById("attempts-to-lose").value),
         };
     }
